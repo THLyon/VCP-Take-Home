@@ -2,7 +2,7 @@ const express = require('express');
 const app = express(); 
 const PORT = 3000; 
 const path = require('path'); 
-
+const bodyParser =require('body-parser')
 app.use(express.json()); 
 
 const wikipediaController = require('./controllers/wikipediaController'); 
@@ -14,6 +14,10 @@ app.get('/check', (req, res) => {
     const response = { Creator: 'Tanner Lyon' }; 
     return res.status(200).json(response); 
 }); 
+
+app.post('/test', (req, res) => {
+  res.send('Test endpoint reached.');
+});
 
 app.post('/search', wikipediaController.getInfo, (req, res) => {
   return res.status(200).json(res.locals.details);
