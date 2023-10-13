@@ -6,7 +6,7 @@ const bodyParser =require('body-parser')
 app.use(express.json()); 
 
 const wikipediaController = require('./controllers/wikipediaController'); 
-
+const marketController = require('./controllers/marketController');
 
 
 //! Route Handlers
@@ -15,14 +15,14 @@ app.get('/check', (req, res) => {
     return res.status(200).json(response); 
 }); 
 
-app.post('/test', (req, res) => {
-  res.send('Test endpoint reached.');
-});
-
 app.post('/search', wikipediaController.getInfo, (req, res) => {
   return res.status(200).json(res.locals.details);
 }); 
 
+app.post('/marketResearch', express.json(), marketController.getInfo, (req, res) => {
+  const assessedData = marketController.assessMarketStatus(res.locals.details);
+  return res.status(200).json(assessedData);
+});
 
 //!local error handler
 app.use((req, res) => res.sendStatus(400));
