@@ -10,7 +10,7 @@ const url = "https://en.wikipedia.org/w/api.php";
 const wikipediaController = {};
 
 wikipediaController.getInfo = async (req, res, next) => {
-    console.log("test");
+
     const params = new URLSearchParams({
         action: "query",
         list: "search",
@@ -27,7 +27,7 @@ wikipediaController.getInfo = async (req, res, next) => {
             "firstHit": data.query.search[0].snippet
         };
 
-        details.firstHit = he.decode(details.firstHit); //trying to decode the html coming in 
+        details.firstHit = he.decode(details.firstHit); 
 
         const $ = cheerio.load(details.firstHit);
         details.firstHit = $.text();
