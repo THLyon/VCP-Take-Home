@@ -11,12 +11,12 @@ The following project and code is written for Veraleo Capital Partners take home
 To get started: 
 
 1. Download and clone the repository. 
-2. The application should run without worries, but if there are any issues, here are the dependencies that I installed. 
-    - npm i 
-    - express
-    - cheerio 
-    - he 
-    -node-fetch
+2. In command line, run 'npm i express' to install express on node.js
+    **The application should run without worries after installing express, but if there are any issues, here are the dependencies that I installed. **
+            - npm i 
+            - cheerio 
+            - he 
+            - node-fetch
 3. To start server, run 'npm start' in local terminal. 
     - Application should spin up on port 3000
 4. I ran all tests off of "Postman" so I will give instructions geared towards that as some specifics had to be correct for return. 
@@ -31,7 +31,7 @@ To get started:
         - click on 'Body' to add query information 
         - change style to 'raw'
         - change format to 'JSON' 
-        - in body paste JSON query " { "query": "facebook" }
+        - in body paste JSON query -  { "query": "Facebook" }, {"query": "Amazon" }, { "query":"Guitar" }, { "query":"Fly Fishing" }
             -expected return: 
                 {
                     "numberOfHits": 97913,
