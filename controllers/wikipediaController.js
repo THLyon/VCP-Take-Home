@@ -1,11 +1,9 @@
-/*
-* TODO: 
-    * - Create Endpoint that searches wikipedia api for query input
-        * - Return json response containing numberOfHits, first hit 
 
-*/
 const fetch = (...args) =>
 	import('node-fetch').then(({default: fetch}) => fetch(...args));
+
+const cheerio = require('cheerio');
+const he = require('he'); 
 
 const url = "https://en.wikipedia.org/w/api.php";
 
@@ -18,24 +16,23 @@ wikipediaController.getInfo = async (req, res, next) => {
         list: "search",
         srsearch: req.body.query,
         format: "json",
-        // origin: location.origin
     });
 
-    console.log(`${url}?${params}`);
     try {
         const response = await fetch(`${url}?${params}`);
         const data = await response.json();
-
-        console.log('.then');
-        console.log(data);
 
         const details = {
             "numberOfHits": data.query.searchinfo.totalhits,
             "firstHit": data.query.search[0].snippet
         };
 
+        details.firstHit = he.decode(details.firstHit); //trying to decode the html coming in 
+
+        const $ = cheerio.load(details.firstHit);
+        details.firstHit = $.text();
+
         res.locals.details = details;
-        console.log(details);
         next();
     } catch (err) {
         console.error(err);
